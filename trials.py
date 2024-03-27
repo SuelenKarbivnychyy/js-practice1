@@ -124,12 +124,94 @@ def longest_word_length(words):
 
 
 def truncate(string):
-    pass  # TODO: replace this line with your code
+    # Truncate repeating characters into one character.
+
+    #  Ex.:
+    #    > truncate('aaaabbbbcccca');
+    #    'abca'
+
+    #    > truncate('hi***!!!! wooow');
+    #    'hi*! wow'
+
+    result = []
+
+    for char in string:
+        if len(result) == 0 or char != result[len(result) -1]:
+            result.append(char)
+   
+    return str("".join(result))
+
+# print(truncate('hi***!!!! wooow'))  
+
+
 
 
 def has_balanced_parens(string):
-    pass  # TODO: replace this line with your code
+#    Return true if all parentheses in a given string are balanced.
+
+#  Ex.:
+#  > hasBalancedParens('()');
+#  true
+
+#  > hasBalancedParens('((This) (is) (good))');
+#  true
+
+#  > hasBalancedParens('(Oh no!)(');
+#  false
+    
+    parens = 0
+
+    for char in string:
+        if char == "(":
+            parens += 1
+        elif char == ")":
+            parens -= 1
+
+        if parens < 0 :
+            return False
+
+    return parens == 0
+
+print(has_balanced_parens('(Oh no!)()'))               
 
 
 def compress(string):
-    pass  # TODO: replace this line with your code
+#      Return a compressed version of the given string.
+
+#  Ex.:
+#    > compress('aabbaabb');
+#    'a2b2a2b2'
+
+#  If a character appears once, it shouldn't be followed by a number:
+#    > compress('abc');
+#    'abc'
+
+#  The function should handle all types of characters:
+#    > compress('Hello, world! Cows go moooo...');
+#    'Hel2o, world! Cows go mo4.3'
+
+
+    compressed = []
+
+    curr_char = ""
+    char_count = 0
+
+    for char in string:
+        if char != curr_char:
+            compressed.append(curr_char)
+
+            if char_count > 1:
+                compressed.append(str(char_count))
+
+            curr_char = char
+            char_count = 0    
+
+        char_count += 1
+
+    compressed.append(curr_char)
+    if char_count > 1:
+        compressed.append(str(char_count))
+
+    return str("".join(compressed))
+
+# print(compress("aabbaabb"))
